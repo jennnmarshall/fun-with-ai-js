@@ -39,7 +39,7 @@ function generateUniqueId() {
   return `id-${timestamp}-${hexadecimalString}`;
 }
 
-function chatStripe(isAI, value, uniqueId) {
+function chatStripe(isAi, value, uniqueId) {
   return `
     <div class="wrapper ${isAi && "ai"}">
       <div class="chat">
@@ -64,4 +64,18 @@ const handleSubmit = async (e) => {
 
   // bot chatstripe
   const uniqueId = generateUniqueId();
+  chatContainer.innerHTML += chatStripe(true, " ", uniqueId);
+
+  chatContainer.scrollTop = chatContainer.scrollHeight;
+
+  const messageDiv = document.getElementById(uniqueId);
+
+  loader(messageDiv);
 };
+
+form.addEventListener('submit', handleSubmit);
+form.addEventListener('keyup', (e) => {
+  if (e.keyCode === 13) {
+    handleSubmit(e);
+  }
+})
